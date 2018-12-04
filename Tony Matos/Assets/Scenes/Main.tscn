@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Scripts/Main.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scenes/SnowBall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=4]
+
+[node name="Main" type="Node"]
+
+script = ExtResource( 1 )
+Snowball = ExtResource( 2 )
+
+[node name="Player" parent="." index="0" instance=ExtResource( 3 )]
+
+position = Vector2( 50.2939, 50.2939 )
+
+[node name="AttackTimer" type="Timer" parent="." index="1"]
+
+process_mode = 1
+wait_time = 0.75
+one_shot = true
+autostart = false
+
+[node name="Enemy" parent="." index="2" instance=ExtResource( 4 )]
+
+max_wait = null
+
+[node name="PlayerStartPosition" type="Position2D" parent="." index="3"]
+
+position = Vector2( 75, 300 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="EnemyStartPosition" type="Position2D" parent="." index="4"]
+
+position = Vector2( 950, 300 )
+_sections_unfolded = [ "Transform" ]
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+
+
