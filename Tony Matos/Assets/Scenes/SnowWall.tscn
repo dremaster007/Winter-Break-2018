@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 19.5631, 35.4821 )
+extents = Vector2( 11.9059, 31.8703 )
 
 [node name="SnowWall" type="Area2D"]
 
@@ -18,6 +18,8 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+is_player_wall = true
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 

@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var is_player_wall = true
+export var is_player_wall = true
 
 func start(mousepos):
 	position = mousepos

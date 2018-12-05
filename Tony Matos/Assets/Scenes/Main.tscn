@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=5]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = ExtResource( 1 )
 Snowball = ExtResource( 2 )
@@ -20,40 +20,54 @@ position = Vector2( 50.2939, 50.2939 )
 
 max_wait = null
 
-[node name="SnowWall" parent="." index="2" instance=ExtResource( 3 )]
-
-position = Vector2( 291, 297 )
-
-[node name="PlayerStartPosition" type="Position2D" parent="." index="3"]
+[node name="PlayerStartPosition" type="Position2D" parent="." index="2"]
 
 position = Vector2( 75, 300 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="EnemyStartPosition" type="Position2D" parent="." index="4"]
+[node name="EnemyStartPosition" type="Position2D" parent="." index="3"]
 
 position = Vector2( 950, 300 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="AttackTimer" type="Timer" parent="." index="5"]
+[node name="AttackTimer" type="Timer" parent="." index="4"]
 
 process_mode = 1
 wait_time = 0.75
 one_shot = true
 autostart = false
 
-[node name="WallPlaceTimer" type="Timer" parent="." index="6"]
+[node name="WallPlaceTimer" type="Timer" parent="." index="5"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 10.0
 one_shot = true
 autostart = false
 
-[node name="WallDestroyTimer" type="Timer" parent="." index="7"]
+[node name="WallDestroyTimer" type="Timer" parent="." index="6"]
 
 process_mode = 1
 wait_time = 5.0
-one_shot = false
+one_shot = true
 autostart = false
+
+[node name="SnowWall" parent="." index="7" instance=ExtResource( 3 )]
+
+position = Vector2( 150, 390 )
+
+[node name="SnowWall2" parent="." index="8" instance=ExtResource( 3 )]
+
+position = Vector2( 147, 173 )
+
+[node name="SnowWall3" parent="." index="9" instance=ExtResource( 3 )]
+
+position = Vector2( 836, 175 )
+is_player_wall = false
+
+[node name="SnowWall4" parent="." index="10" instance=ExtResource( 3 )]
+
+position = Vector2( 839, 385 )
+is_player_wall = false
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 

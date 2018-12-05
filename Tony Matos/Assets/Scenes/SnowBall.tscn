@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="SnowBall" type="Area2D" index="0" groups=[
+[node name="SnowBall" type="Area2D" groups=[
 "snowball",
 ]]
 
@@ -21,6 +21,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
 speed = 1000
+is_player_snowball = true
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
