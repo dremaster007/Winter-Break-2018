@@ -4,6 +4,7 @@ var velocity = Vector2(0, 0) # We set this velocity in the main script
 
 export (int) var speed
 
+onready var is_player_snowball = true
 
 func start(pos, mousey):
 	position = pos

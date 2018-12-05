@@ -1,29 +1,28 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/SnowBall.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=5]
 
 [node name="Main" type="Node"]
 
 script = ExtResource( 1 )
 Snowball = ExtResource( 2 )
+Snowwall = ExtResource( 3 )
 
-[node name="Player" parent="." index="0" instance=ExtResource( 3 )]
+[node name="Player" parent="." index="0" instance=ExtResource( 4 )]
 
 position = Vector2( 50.2939, 50.2939 )
 
-[node name="AttackTimer" type="Timer" parent="." index="1"]
-
-process_mode = 1
-wait_time = 0.75
-one_shot = true
-autostart = false
-
-[node name="Enemy" parent="." index="2" instance=ExtResource( 4 )]
+[node name="Enemy" parent="." index="1" instance=ExtResource( 5 )]
 
 max_wait = null
+
+[node name="SnowWall" parent="." index="2" instance=ExtResource( 3 )]
+
+position = Vector2( 291, 297 )
 
 [node name="PlayerStartPosition" type="Position2D" parent="." index="3"]
 
@@ -35,6 +34,31 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( 950, 300 )
 _sections_unfolded = [ "Transform" ]
 
+[node name="AttackTimer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 0.75
+one_shot = true
+autostart = false
+
+[node name="WallPlaceTimer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="WallDestroyTimer" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 5.0
+one_shot = false
+autostart = false
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+
+[connection signal="timeout" from="WallPlaceTimer" to="." method="_on_WallPlaceTimer_timeout"]
+
+[connection signal="timeout" from="WallDestroyTimer" to="." method="_on_WallDestroyTimer_timeout"]
 
 
