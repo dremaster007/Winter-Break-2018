@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 radius = 22.676
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="Area2D" index="0"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -19,7 +19,6 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
 speed = 300
-max_wait = 3.0
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -32,13 +31,20 @@ _sections_unfolded = [ "Transform" ]
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="MoveEnemyTimer" type="Timer" parent="." index="2"]
+[node name="DirectionSwapTimer" type="Timer" parent="." index="2"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
 
-[connection signal="timeout" from="MoveEnemyTimer" to="." method="_on_MoveEnemyTimer_timeout"]
+[node name="EnemyAttackTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="DirectionSwapTimer" to="." method="_on_DirectionSwapTimer_timeout"]
 
 
