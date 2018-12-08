@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/SnowBall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Music/Winter Main Theme.wav" type="AudioStream" id=6]
 
 [node name="Main" type="Node" index="0"]
 
@@ -13,8 +14,6 @@ Snowball = ExtResource( 2 )
 Snowwall = ExtResource( 3 )
 
 [node name="Player" parent="." index="0" instance=ExtResource( 4 )]
-
-position = Vector2( 50.2939, 50.2939 )
 
 [node name="Enemy" parent="." index="1" instance=ExtResource( 5 )]
 
@@ -38,7 +37,7 @@ autostart = false
 [node name="EnemyAttackTimer" type="Timer" parent="." index="5"]
 
 process_mode = 1
-wait_time = 0.75
+wait_time = 5.0
 one_shot = false
 autostart = false
 
@@ -80,6 +79,17 @@ is_player_wall = false
 
 position = Vector2( 803.08, 457.23 )
 is_player_wall = false
+
+[node name="MainThemeBGM" type="AudioStreamPlayer" parent="." index="13"]
+
+stream = ExtResource( 6 )
+volume_db = -12.0
+pitch_scale = 0.85
+autoplay = true
+mix_target = 0
+bus = "Master"
+
+[connection signal="game_over" from="Player" to="." method="_on_Player_game_over"]
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 

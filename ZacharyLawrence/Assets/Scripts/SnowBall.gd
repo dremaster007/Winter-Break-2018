@@ -11,10 +11,12 @@ func start(pos, target, character):
 	position = pos
 	if character == "player":
 		is_player_snowball = true
-		velocity = Vector2(speed, target)
+		velocity = Vector2(target)
 	elif character == "enemy":
 		is_player_snowball = false
-		velocity = Vector2(-speed, target)
+		velocity = Vector2(target)
+	if velocity > Vector2(0,0) or velocity < Vector2(0,0):
+		velocity = velocity.normalized() * speed
 
 func _process(delta):
 	position += velocity * delta
