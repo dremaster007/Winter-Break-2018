@@ -186,7 +186,7 @@ radius = 22.676
 custom_solver_bias = 0.0
 extents = Vector2( 10, 65.1747 )
 
-[node name="Enemy" type="Area2D" index="0" groups=[
+[node name="Enemy" type="Area2D" groups=[
 "enemy",
 ]]
 
@@ -237,14 +237,7 @@ wait_time = 1.0
 one_shot = false
 autostart = true
 
-[node name="EnemyAttackTimer" type="Timer" parent="." index="3"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
-
-[node name="SnowballWallCheck" type="Area2D" parent="." index="4"]
+[node name="SnowballWallCheck" type="Area2D" parent="." index="3"]
 
 position = Vector2( -69.2308, 0 )
 input_pickable = true
@@ -255,7 +248,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 
-[node name="opSnowballCheck" type="CollisionShape2D" parent="SnowballWallCheck" index="0"]
+[node name="TopSnowballCheck" type="CollisionShape2D" parent="SnowballWallCheck" index="0"]
 
 position = Vector2( -19.1797, -61.9993 )
 rotation = 0.785398
@@ -271,30 +264,46 @@ scale = Vector2( 1, 1.20747 )
 shape = SubResource( 6 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="EnemyWallPlaceTimer" type="Timer" parent="." index="5"]
+[node name="EnemyWallPlaceTimer" type="Timer" parent="." index="4"]
 
 process_mode = 1
 wait_time = 4.0
 one_shot = true
 autostart = false
 
-[node name="EnemyWallDestroyTimer" type="Timer" parent="." index="6"]
+[node name="EnemyWallDestroyTimer" type="Timer" parent="." index="5"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
 
+[node name="HighSnowAttackTimer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="LowSnowAttackTimer" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 [connection signal="area_entered" from="." to="." method="_on_Enemy_area_entered"]
 
 [connection signal="timeout" from="DirectionSwapTimer" to="." method="_on_DirectionSwapTimer_timeout"]
-
-[connection signal="timeout" from="EnemyAttackTimer" to="." method="_on_EnemyAttackTimer_timeout"]
 
 [connection signal="area_entered" from="SnowballWallCheck" to="." method="_on_SnowballWallCheck_area_entered"]
 
 [connection signal="timeout" from="EnemyWallPlaceTimer" to="." method="_on_EnemyWallPlaceTimer_timeout"]
 
 [connection signal="timeout" from="EnemyWallDestroyTimer" to="." method="_on_EnemyWallDestroyTimer_timeout"]
+
+[connection signal="timeout" from="HighSnowAttackTimer" to="." method="_on_HighSnowAttackTimer_timeout"]
+
+[connection signal="timeout" from="LowSnowAttackTimer" to="." method="_on_LowSnowAttackTimer_timeout"]
 
 

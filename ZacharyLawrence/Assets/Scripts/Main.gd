@@ -24,14 +24,12 @@ func _ready():
 	new_game()
 
 func new_game():
-	get_node("Enemy/EnemyAttackTimer").start() # start the timer for enemy attacking
+	#get_node("Enemy/EnemyAttackTimer").start() # start the timer for enemy attacking
 	player.position = player_start_pos.position # make the player spawn at his position
 	enemy.position = enemy_start_pos.position # make the enemy spawn at their location
 
 func _process(delta):
 	pass
-	#print(get_node("Player").snowball_count, " <-- Players snowballs left")
-	#print(get_node("Enemy").enemy_snowball_count, " <-- Enemy's snowballs left")
 
 func _on_Player_game_over():
 	new_game()

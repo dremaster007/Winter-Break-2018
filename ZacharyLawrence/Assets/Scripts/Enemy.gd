@@ -25,7 +25,7 @@ var enemy_can_place_wall = true
 var enemy_wall_destroyed = false 
 var wall
 
-var enemy_state = "high_snow"
+var enemy_state = "high_snow" # sets the enemies state
 
 onready var player = get_parent().get_node("Player") # ease of access for player
 
@@ -35,17 +35,18 @@ func _ready():
 	screensize = get_viewport_rect().size # set screensize for clamping
 
 func _process(delta):
-	check_state(enemy_state)
+	print(enemy_snowball_count) # prints out how many snowballs the enemy has
+	check_state(enemy_state) # calls checkstate
 	velocity = Vector2(0, 0) # reset velocity
-	perform_state(enemy_state)
+	perform_state(enemy_state) # calls performstate
 	position += velocity * delta * speed # increase velocity
 	position.y = clamp(position.y, screensize.y * .1, screensize.y * .9) # clamp the enemy
-
 
 # This fumction takes in the current state of the enemy ai
 # and determines what state it should actually be in depending on
 # it's variables, like amount of snow, etc
 func check_state(state):
+	print(state, "<----- Check state")
 	if state == "high_snow": # if enemy state is "high_snow"
 		if enemy_snowball_count < enemy_max_snowball_count - 2: # check to see snowcount is 3 or less
 			enemy_state = "low_snow" # set state to low_snow
@@ -58,49 +59,92 @@ func check_state(state):
 		if enemy_snowball_count > 0: # check to see if snowball count is greater than 0
 			enemy_state = "low_snow" # set state to low_snow
 
+# This function will perform was has to happen during each state
+# that the ai is in
 func perform_state(state):
 	match state:
-		"high_snow":
-			enemy_move("high_snow")
-			#enemy_attack("high_snow")
-		"low_snow":
-			pass
-			#enemy_move()
-			#enemy_attack()
-		"out_of_snow":
-			enemy_move("out_of_snow")
-			#enemy_attack()
+		"high_snow": # if enemy is high snow state
+			enemy_move("high_snow") # move the enemy in the specific way
+			if get_node("HighSnowAttackTimer").is_stopped(): # if the high snow attack timer is stopped
+				get_node("HighSnowAttackTimer").start() # start it
+				get_node("LowSnowAttackTimer").stop() # stop the low attack timer
+		"low_snow": # if the enemy is at low snow state
+			enemy_move("low_snow") # move the enemy in the specific way
+			if get_node("LowSnowAttackTimer").is_stopped(): # if the low snow attack timer is stopped
+				get_node("LowSnowAttackTimer").start() # start it
+				get_node("HighSnowAttackTimer").stop() # stop the high snow attack timer
+		"out_of_snow": # if the enemy is at outofsnow state
+			enemy_move("out_of_snow") # move the enemy in the specific way
+			get_node("LowSnowAttackTimer").stop() # stop the low attack timer
+			get_node("HighSnowAttackTimer").stop() # stop the high attack timer
 
 func enemy_move(state):
+	if state == "high_snow": # if state is highsnow
+		if get_node("DirectionSwapTimer").is_stopped(): # if direction swap timer is stopped
+			get_node("DirectionSwapTimer").start() # then start it
+		if move_down == true: # if move down is true
+			velocity_down(true, state) # call velocity_down, sending it the direciton and state
+		elif move_down == false: # otherwise if move down is false
+			velocity_down(false, state) # call velocity_down with different params
+	if state == "low_snow": # if state is lowsnow
+		if get_node("DirectionSwapTimer").is_stopped(): # if the direction swap timer is stopped
+			get_node("DirectionSwapTimer").start() # then start it
+		if move_down == true: # if move down is true
+			velocity_down(true, state) # call velocity down with move down and lowsnow
+		elif move_down == false: # otherwise if move down is false
+			velocity_down(false, state) # call velocitydown with movedonw and lowsnow
+	if state == "out_of_snow": # if state is outofsnow
+		if position.y > screensize.y / 2: # if the enemy is in the lower half of the screen
+			move_down = true # move down
+			velocity_down(true, state) # call velocity down while moving down
+		elif position.y <= screensize.y / 2: # if the enemy is in the top half of the screen
+			move_down = false # move up
+			velocity_down(false, state) # call velocity with move up
+
+func velocity_down(direction, state):
 	if state == "high_snow":
-		if get_node("DirectionSwapTimer").is_stopped():
-			get_node("DirectionSwapTimer").start()
-		if move_down == true:
-			velocity_down(true)
-		elif move_down == false:
-			velocity_down(false)
+		if direction == true:
+			velocity.y += 1
+		if direction == false:
+			velocity.y -= 1
+	if state == "low_snow":
+		if direction == true:
+			velocity.y += 1
+		if direction == false:
+			velocity.y -= 1
 	if state == "out_of_snow":
-		if position.y > screensize.y / 2:
-			move_down = true
-			velocity_down(true)
-		elif position.y <= screensize.y / 2:
-			move_down = false
-			velocity_down(false)
+		if direction == true:
+			velocity.y += 1
+		if direction == false:
+			velocity.y -= 1
 
-func enemy_attack():
-	es = Snowball.instance() # spawn in a SNOWBALL
-	es.is_player_snowball = false # set the snowball as not a player
-	es.start(position, player.position - position, "enemy") # start the snowball at the enemy, moving towards the player
-	get_parent().add_child(es) # add it as a child 
-	get_node("EnemyAttackTimer").wait_time = rand_range(0.5, 1.0) # randomize when the enemy will shoot
-	get_node("EnemyAttackTimer").start() # start the enemy shooting timer
-	enemy_snowball_count -= 1
-
-func velocity_down(direction):
-	if direction == true:
-		velocity.y += 1
-	if direction == false:
-		velocity.y -= 1
+func enemy_attack(state):
+	print(state, "<----- Enemy attack state")
+	if state == "high_snow": # if state is highsnow
+		es = Snowball.instance() # instance a snowball
+		es.is_player_snowball = false # make it not a players
+		es.start(position, player.position - position, "enemy") # start it
+		get_parent().add_child(es) # add it as a child of the main
+		get_node("LowSnowAttackTimer").stop() # stop the low attack timer
+		get_node("HighSnowAttackTimer").wait_time = rand_range(0.5, 1.0)
+		get_node("HighSnowAttackTimer").start()
+		enemy_snowball_count -= 1
+	elif state == "low_snow":
+		es = Snowball.instance()
+		es.is_player_snowball = false
+		es.start(position, player.position - position, "enemy")
+		get_parent().add_child(es)
+		get_node("HighSnowAttackTimer").stop()
+		get_node("LowSnowAttackTimer").wait_time = rand_range(1.5, 2.0)
+		get_node("LowSnowAttackTimer").start()
+		enemy_snowball_count -= 1
+	elif state == "out_of_snow":
+		#es = Snowball.instance()
+		#es.is_player_snowball = false
+		#es.start(position, player.position - position, "enemy")
+		#get_parent().add_child(es)
+		get_node("LowSnowAttackTimer").stop()
+		get_node("HighSnowAttackTimer").stop()
 
 func _on_DirectionSwapTimer_timeout():
 	get_node("DirectionSwapTimer").wait_time = rand_range(swapTimeMin, swapTimeMax)
@@ -123,10 +167,6 @@ func add_snow():
 	if enemy_snowball_count < enemy_max_snowball_count:
 		enemy_snowball_count += 1
 
-func _on_EnemyAttackTimer_timeout():
-	if enemy_snowball_count > 0:
-		enemy_attack()
-
 func _on_Enemy_area_entered(area):
 	pass
 	# this will do stuff when the enemy is hit with a player snowball or dies of other reasons
@@ -148,3 +188,8 @@ func _on_EnemyWallDestroyTimer_timeout():
 	else:
 		pass
 
+func _on_HighSnowAttackTimer_timeout():
+	enemy_attack("high_snow")
+
+func _on_LowSnowAttackTimer_timeout():
+	enemy_attack("low_snow")
