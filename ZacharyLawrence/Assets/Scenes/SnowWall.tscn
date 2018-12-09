@@ -20,7 +20,6 @@ audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 is_player_wall = true
-wall_destroyed = false
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
