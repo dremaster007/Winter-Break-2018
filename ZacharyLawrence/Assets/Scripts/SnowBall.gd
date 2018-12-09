@@ -20,5 +20,9 @@ func start(pos, target, character):
 
 func _process(delta):
 	position += velocity * delta
-	if position.x > get_parent().get_node("Player").screensize.x * .95:
-		queue_free()
+	if is_player_snowball:
+		if position.x > get_parent().get_node("Player").screensize.x * .95:
+			queue_free()
+	elif is_player_snowball == false:
+		if position.x < get_parent().get_node("Player").screensize.x * .05:
+			queue_free()
