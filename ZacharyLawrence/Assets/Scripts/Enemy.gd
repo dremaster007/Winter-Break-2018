@@ -36,13 +36,8 @@ func _ready():
 
 func _process(delta):
 	check_state(enemy_state)
+	velocity = Vector2(0, 0) # reset velocity
 	perform_state(enemy_state)
-	print (enemy_state)
-	velocity = Vector2() # reset velocity
-	if move_down == true: # moving down
-		velocity.y += 1
-	if move_up == true: # moving up
-		velocity.y -= 1
 	position += velocity * delta * speed # increase velocity
 	position.y = clamp(position.y, screensize.y * .1, screensize.y * .9) # clamp the enemy
 
@@ -66,30 +61,53 @@ func check_state(state):
 func perform_state(state):
 	match state:
 		"high_snow":
-			pass
+			enemy_move("high_snow")
+			#enemy_attack("high_snow")
 		"low_snow":
 			pass
+			#enemy_move()
+			#enemy_attack()
 		"out_of_snow":
-			pass
+			enemy_move("out_of_snow")
+			#enemy_attack()
 
-func _on_DirectionSwapTimer_timeout():
-	get_node("DirectionSwapTimer").wait_time = rand_range(swapTimeMin, swapTimeMax)
-	if move_down == true:
-		move_down = false
-		move_up = true
-	elif move_up == true:
-		move_up = false
-		move_down = true
+func enemy_move(state):
+	if state == "high_snow":
+		if get_node("DirectionSwapTimer").is_stopped():
+			get_node("DirectionSwapTimer").start()
+		if move_down == true:
+			velocity_down(true)
+		elif move_down == false:
+			velocity_down(false)
+	if state == "out_of_snow":
+		if position.y > screensize.y / 2:
+			move_down = true
+			velocity_down(true)
+		elif position.y <= screensize.y / 2:
+			move_down = false
+			velocity_down(false)
 
 func enemy_attack():
 	es = Snowball.instance() # spawn in a SNOWBALL
 	es.is_player_snowball = false # set the snowball as not a player
 	es.start(position, player.position - position, "enemy") # start the snowball at the enemy, moving towards the player
 	get_parent().add_child(es) # add it as a child 
-	#enemy_can_attack = false # don't let the enemy attack immediately
 	get_node("EnemyAttackTimer").wait_time = rand_range(0.5, 1.0) # randomize when the enemy will shoot
 	get_node("EnemyAttackTimer").start() # start the enemy shooting timer
 	enemy_snowball_count -= 1
+
+func velocity_down(direction):
+	if direction == true:
+		velocity.y += 1
+	if direction == false:
+		velocity.y -= 1
+
+func _on_DirectionSwapTimer_timeout():
+	get_node("DirectionSwapTimer").wait_time = rand_range(swapTimeMin, swapTimeMax)
+	if move_down == true:
+		move_down = false
+	elif move_down == false:
+		move_down = true
 
 func enemy_place_wall():
 	wall = Snowwall.instance() # spawn in a SNOWWALL

@@ -2,7 +2,7 @@ extends Node
 
 
 ####### 1) move some code around, move attacking to their respective scenes/scipts
-# 2) players areas (snowpile) to refill snow
+####### 2) players areas (snowpile) to refill snow
 # 3) create an ai that follows rules of the game
 #    tracks players movements, knows where they are, and how
 #    how to react

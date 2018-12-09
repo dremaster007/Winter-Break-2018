@@ -235,7 +235,7 @@ _sections_unfolded = [ "Transform" ]
 process_mode = 1
 wait_time = 1.0
 one_shot = false
-autostart = false
+autostart = true
 
 [node name="EnemyAttackTimer" type="Timer" parent="." index="3"]
 

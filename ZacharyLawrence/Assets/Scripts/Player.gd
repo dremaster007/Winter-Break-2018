@@ -9,8 +9,8 @@ export (int) var speed # how fast player walks
 var velocity = Vector2() # walking velocity
 export (Vector2) var screensize = Vector2() # screensize 
 
+var is_attacking = false
 var can_attack = true # the player can attack
-var player_throw = false
 
 var can_place_wall = true # player can player wall
 var wall_destroyed = false 
@@ -43,8 +43,11 @@ func get_input():
 	if Input.is_action_pressed("ui_down"):
 		velocity.y += 1
 		get_node("Sprite/AnimationPlayer").current_animation = "walking_down"
-	if Input.is_mouse_button_pressed(1) and can_attack and snowball_count > 0: # if the player can attack
+	if Input.is_action_pressed("left_mouse_button") and can_attack and snowball_count > 0: # if the player can attack
+		is_attacking = true
 		player_attack() # attack
+	if Input.is_action_just_released("left_mouse_button"):
+		is_attacking = false
 	if Input.is_mouse_button_pressed(2) and can_place_wall: # if the player can place wall
 		player_place_wall() # place wall
 
@@ -68,8 +71,9 @@ func player_place_wall():
 	get_node("WallDestroyTimer").start() # set wall self destruction timer
 
 func add_snow():
-	if snowball_count < max_snowball_count:
-		snowball_count += 1
+	if is_attacking == false:
+		if snowball_count < max_snowball_count:
+			snowball_count += 1
 
 func die():
 	emit_signal("game_over")
