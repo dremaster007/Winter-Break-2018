@@ -199,8 +199,8 @@ Snowball = ExtResource( 2 )
 Snowwall = ExtResource( 3 )
 speed = 300
 screensize = Vector2( 0, 0 )
-snowball_count = 5
-max_snowball_count = 5
+snowball_count = 10
+max_snowball_count = 10
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 

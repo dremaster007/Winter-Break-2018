@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Music/Winter Main Theme.wav" type="AudioStream" id=7]
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 script = ExtResource( 1 )
 Snowball = ExtResource( 2 )

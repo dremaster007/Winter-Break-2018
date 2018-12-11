@@ -184,9 +184,9 @@ radius = 22.676
 [sub_resource type="RectangleShape2D" id=6]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 65.1747 )
+extents = Vector2( 10, 35.6617 )
 
-[node name="Enemy" type="Area2D" groups=[
+[node name="Enemy" type="Area2D" index="0" groups=[
 "enemy",
 ]]
 
@@ -264,32 +264,81 @@ scale = Vector2( 1, 1.20747 )
 shape = SubResource( 6 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="EnemyWallPlaceTimer" type="Timer" parent="." index="4"]
+[node name="TopDodgeCheck" type="Area2D" parent="." index="4"]
+
+position = Vector2( 0, -30.7692 )
+scale = Vector2( 1, 0.430289 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+
+[node name="TopDodgeCollision" type="CollisionShape2D" parent="TopDodgeCheck" index="0"]
+
+modulate = Color( 0, 1, 0.0390625, 1 )
+position = Vector2( -130.769, 35.7542 )
+scale = Vector2( 1, 1.98965 )
+shape = SubResource( 6 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="BottomDodgeCheck" type="Area2D" parent="." index="5"]
+
+position = Vector2( 0, 36.8462 )
+scale = Vector2( 1, 0.430288 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+
+[node name="BottomDodgeCollision" type="CollisionShape2D" parent="BottomDodgeCheck" index="0"]
+
+modulate = Color( 0, 1, 0.0390625, 1 )
+position = Vector2( -130.769, -32 )
+scale = Vector2( 1, 1.98965 )
+shape = SubResource( 6 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="EnemyWallPlaceTimer" type="Timer" parent="." index="6"]
 
 process_mode = 1
 wait_time = 4.0
 one_shot = true
 autostart = false
 
-[node name="EnemyWallDestroyTimer" type="Timer" parent="." index="5"]
+[node name="EnemyWallDestroyTimer" type="Timer" parent="." index="7"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="HighSnowAttackTimer" type="Timer" parent="." index="6"]
+[node name="HighSnowAttackTimer" type="Timer" parent="." index="8"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="LowSnowAttackTimer" type="Timer" parent="." index="7"]
+[node name="LowSnowAttackTimer" type="Timer" parent="." index="9"]
 
 process_mode = 1
 wait_time = 1.0
-one_shot = false
+one_shot = true
+autostart = false
+
+[node name="OverrideSpeedTimer" type="Timer" parent="." index="10"]
+
+process_mode = 1
+wait_time = 0.3
+one_shot = true
 autostart = false
 
 [connection signal="area_entered" from="." to="." method="_on_Enemy_area_entered"]
@@ -298,6 +347,10 @@ autostart = false
 
 [connection signal="area_entered" from="SnowballWallCheck" to="." method="_on_SnowballWallCheck_area_entered"]
 
+[connection signal="area_entered" from="TopDodgeCheck" to="." method="_on_TopDodgeCheck_area_entered"]
+
+[connection signal="area_entered" from="BottomDodgeCheck" to="." method="_on_BottomDodgeCheck_area_entered"]
+
 [connection signal="timeout" from="EnemyWallPlaceTimer" to="." method="_on_EnemyWallPlaceTimer_timeout"]
 
 [connection signal="timeout" from="EnemyWallDestroyTimer" to="." method="_on_EnemyWallDestroyTimer_timeout"]
@@ -305,5 +358,7 @@ autostart = false
 [connection signal="timeout" from="HighSnowAttackTimer" to="." method="_on_HighSnowAttackTimer_timeout"]
 
 [connection signal="timeout" from="LowSnowAttackTimer" to="." method="_on_LowSnowAttackTimer_timeout"]
+
+[connection signal="timeout" from="OverrideSpeedTimer" to="." method="_on_OverrideSpeedTimer_timeout"]
 
 

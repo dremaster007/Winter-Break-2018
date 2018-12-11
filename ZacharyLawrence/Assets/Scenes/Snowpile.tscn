@@ -34,14 +34,14 @@ shape = SubResource( 1 )
 [node name="PlayerSnowAddTimer" type="Timer" parent="." index="2"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 0.75
 one_shot = false
 autostart = false
 
 [node name="EnemySnowAddTimer" type="Timer" parent="." index="3"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 0.75
 one_shot = false
 autostart = false
 

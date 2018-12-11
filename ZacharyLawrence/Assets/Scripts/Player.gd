@@ -16,8 +16,8 @@ var can_place_wall = true # player can player wall
 var wall_destroyed = false 
 var wall
 
-export (int) var snowball_count = 5
-export (int) var max_snowball_count = 5
+export (int) var snowball_count = 10
+export (int) var max_snowball_count = 10
 
 var mouse_position = Vector2(0, 0)
 var global_mouse_position = Vector2(0, 0)

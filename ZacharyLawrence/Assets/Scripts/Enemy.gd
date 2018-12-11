@@ -14,8 +14,8 @@ var move_down = true # or down
 var swapTimeMin = 0.5 # minimum time for random direction swap
 var swapTimeMax = 1.5 # maximum time for random direction swap
 
-var enemy_snowball_count = 5
-var enemy_max_snowball_count = 5
+var enemy_snowball_count = 10
+var enemy_max_snowball_count = 10
 
 var es # defining the enemy snowball
 
@@ -35,7 +35,7 @@ func _ready():
 	screensize = get_viewport_rect().size # set screensize for clamping
 
 func _process(delta):
-	print(enemy_snowball_count) # prints out how many snowballs the enemy has
+	#print(enemy_snowball_count) # prints out how many snowballs the enemy has
 	check_state(enemy_state) # calls checkstate
 	velocity = Vector2(0, 0) # reset velocity
 	perform_state(enemy_state) # calls performstate
@@ -46,14 +46,13 @@ func _process(delta):
 # and determines what state it should actually be in depending on
 # it's variables, like amount of snow, etc
 func check_state(state):
-	print(state, "<----- Check state")
 	if state == "high_snow": # if enemy state is "high_snow"
-		if enemy_snowball_count < enemy_max_snowball_count - 2: # check to see snowcount is 3 or less
+		if enemy_snowball_count < enemy_max_snowball_count * 0.6: # check to see snowcount is 3 or less
 			enemy_state = "low_snow" # set state to low_snow
 	elif state == "low_snow": # otherwise if state is "low_snow"
 		if enemy_snowball_count == 0: # check to see if the enemy's snowball count is 0
 			enemy_state = "out_of_snow" # set state to out_of_snow
-		elif enemy_snowball_count > enemy_max_snowball_count - 2: # but if snowball count is > 3
+		elif enemy_snowball_count > enemy_max_snowball_count * 0.6: # but if snowball count is > 3
 			enemy_state = "high_snow" # set state to high_snow
 	elif state == "out_of_snow": # otherwise if state is "out_of_snow"
 		if enemy_snowball_count > 0: # check to see if snowball count is greater than 0
@@ -82,6 +81,13 @@ func enemy_move(state):
 	if state == "high_snow": # if state is highsnow
 		if get_node("DirectionSwapTimer").is_stopped(): # if direction swap timer is stopped
 			get_node("DirectionSwapTimer").start() # then start it
+		if player.snowball_count <= 1:
+			if position.y > screensize.y / 2: # if the enemy is in the lower half of the screen
+				move_down = true # move down
+				velocity_down(true, state) # call velocity down while moving down
+			elif position.y <= screensize.y / 2: # if the enemy is in the top half of the screen
+				move_down = false # move up
+				velocity_down(false, state) # call velocity with move up
 		if move_down == true: # if move down is true
 			velocity_down(true, state) # call velocity_down, sending it the direciton and state
 		elif move_down == false: # otherwise if move down is false
@@ -89,6 +95,13 @@ func enemy_move(state):
 	if state == "low_snow": # if state is lowsnow
 		if get_node("DirectionSwapTimer").is_stopped(): # if the direction swap timer is stopped
 			get_node("DirectionSwapTimer").start() # then start it
+		if player.snowball_count <= 1:
+			if position.y > screensize.y / 2: # if the enemy is in the lower half of the screen
+				move_down = true # move down
+				velocity_down(true, state) # call velocity down while moving down
+			elif position.y <= screensize.y / 2: # if the enemy is in the top half of the screen
+				move_down = false # move up
+				velocity_down(false, state) # call velocity with move up
 		if move_down == true: # if move down is true
 			velocity_down(true, state) # call velocity down with move down and lowsnow
 		elif move_down == false: # otherwise if move down is false
@@ -105,17 +118,17 @@ func velocity_down(direction, state):
 	if state == "high_snow":
 		if direction == true:
 			velocity.y += 1
-		if direction == false:
+		elif direction == false:
 			velocity.y -= 1
 	if state == "low_snow":
 		if direction == true:
 			velocity.y += 1
-		if direction == false:
+		elif direction == false:
 			velocity.y -= 1
 	if state == "out_of_snow":
 		if direction == true:
 			velocity.y += 1
-		if direction == false:
+		elif direction == false:
 			velocity.y -= 1
 
 func enemy_attack(state):
@@ -146,13 +159,6 @@ func enemy_attack(state):
 		get_node("LowSnowAttackTimer").stop()
 		get_node("HighSnowAttackTimer").stop()
 
-func _on_DirectionSwapTimer_timeout():
-	get_node("DirectionSwapTimer").wait_time = rand_range(swapTimeMin, swapTimeMax)
-	if move_down == true:
-		move_down = false
-	elif move_down == false:
-		move_down = true
-
 func enemy_place_wall():
 	wall = Snowwall.instance() # spawn in a SNOWWALL
 	enemy_wall_destroyed = false
@@ -178,6 +184,33 @@ func _on_SnowballWallCheck_area_entered(area):
 			if enemy_can_place_wall:
 				enemy_place_wall()
 
+func _on_TopDodgeCheck_area_entered(area):
+	if area.is_in_group("snowball") and area.is_player_snowball:
+		get_node("OverrideSpeedTimer").start()
+		if area.velocity.y > 0:
+			speed = 600
+			velocity_down(false, enemy_state)
+		elif area.velocity.y <= 0:
+			speed = 600
+			velocity_down(true, enemy_state)
+
+func _on_BottomDodgeCheck_area_entered(area):
+	if area.is_in_group("snowball") and area.is_player_snowball:
+		get_node("OverrideSpeedTimer").start()
+		if area.velocity.y > 0:
+			speed = 600
+			velocity_down(true, enemy_state)
+		elif area.velocity.y <= 0:
+			speed = 600
+			velocity_down(false, enemy_state)
+
+func _on_DirectionSwapTimer_timeout():
+	get_node("DirectionSwapTimer").wait_time = rand_range(swapTimeMin, swapTimeMax)
+	if move_down == true:
+		move_down = false
+	elif move_down == false:
+		move_down = true
+
 func _on_EnemyWallPlaceTimer_timeout():
 	enemy_can_place_wall = true
 
@@ -193,3 +226,6 @@ func _on_HighSnowAttackTimer_timeout():
 
 func _on_LowSnowAttackTimer_timeout():
 	enemy_attack("low_snow")
+
+func _on_OverrideSpeedTimer_timeout():
+	speed = 300
