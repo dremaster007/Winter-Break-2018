@@ -186,7 +186,7 @@ radius = 22.676
 custom_solver_bias = 0.0
 extents = Vector2( 10, 35.6617 )
 
-[node name="Enemy" type="Area2D" index="0" groups=[
+[node name="Enemy" type="Area2D" groups=[
 "enemy",
 ]]
 
@@ -206,6 +206,7 @@ Snowwall = null
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
 texture = ExtResource( 3 )
 vframes = 5
 hframes = 3
@@ -239,6 +240,7 @@ autostart = true
 
 [node name="SnowballWallCheck" type="Area2D" parent="." index="3"]
 
+editor/display_folded = true
 position = Vector2( -69.2308, 0 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -266,6 +268,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="TopDodgeCheck" type="Area2D" parent="." index="4"]
 
+editor/display_folded = true
 position = Vector2( 0, -30.7692 )
 scale = Vector2( 1, 0.430289 )
 input_pickable = true
@@ -287,6 +290,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="BottomDodgeCheck" type="Area2D" parent="." index="5"]
 
+editor/display_folded = true
 position = Vector2( 0, 36.8462 )
 scale = Vector2( 1, 0.430288 )
 input_pickable = true

@@ -9,6 +9,7 @@ export var is_player_snowball = true
 
 func start(pos, target, character):
 	position = pos
+	get_node("Sprite").frame = randi() % 3
 	if character == "player":
 		is_player_snowball = true
 		velocity = Vector2(target)

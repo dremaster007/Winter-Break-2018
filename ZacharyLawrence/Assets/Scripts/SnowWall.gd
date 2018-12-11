@@ -5,8 +5,9 @@ onready var enemy = get_parent().get_node("Enemy")
 
 export (bool) var is_player_wall = true
 
-func start(target):
+func start(target, wall_flipped):
 	position = target
+	get_node("Sprite").flip_h = wall_flipped
 	#position = get_parent().get_node("Player").mouse_position
 
 func _on_SnowWall_area_entered(area):

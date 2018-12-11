@@ -3,9 +3,9 @@ extends Node
 
 ####### 1) move some code around, move attacking to their respective scenes/scipts
 ####### 2) players areas (snowpile) to refill snow
-# 3) create an ai that follows rules of the game
-#    tracks players movements, knows where they are, and how
-#    how to react
+####### 3) create an ai that follows rules of the game
+#######    tracks players movements, knows where they are, and how
+#######    how to react
 # 4) HUD creation
 # 5) Main menu/Death menu
 
@@ -23,14 +23,17 @@ func _ready():
 	get_node("MainThemeBGM").playing = true
 	new_game()
 
-func new_game():
-	#get_node("Enemy/EnemyAttackTimer").start() # start the timer for enemy attacking
-	player.position = player_start_pos.position # make the player spawn at his position
-	enemy.position = enemy_start_pos.position # make the enemy spawn at their location
-
 func _process(delta):
 	pass
 
+func new_game():
+	player.snowball_count = 10
+	player.position = player_start_pos.position # make the player spawn at his position
+	player.lives = 3
+	enemy.enemy_snowball_count = 10
+	enemy.enemy_lives = 3
+	enemy.position = enemy_start_pos.position # make the enemy spawn at their location
+	get_node("Enemy/HighSnowAttackTimer").start()
+
 func _on_Player_game_over():
 	new_game()
-

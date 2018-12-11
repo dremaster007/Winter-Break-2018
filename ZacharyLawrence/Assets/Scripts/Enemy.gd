@@ -2,6 +2,8 @@ extends Area2D
 
 export (int) var speed # speed of the enemy
 
+var enemy_lives = 3
+
 export (PackedScene) var Snowball
 export (PackedScene) var Snowwall # export the snowwall scene
 
@@ -25,17 +27,17 @@ var enemy_can_place_wall = true
 var enemy_wall_destroyed = false 
 var wall
 
-var enemy_state = "high_snow" # sets the enemies state
+var enemy_state = "high_snow" # sets the enemies state defaulted to high_snow
 
 onready var player = get_parent().get_node("Player") # ease of access for player
 
 func _ready():
 	randomize()
-	get_node("DirectionSwapTimer").start() # start timer for ai swapping
+	get_node("DirectionSwapTimer").start() # start timer for ai direction swapping
 	screensize = get_viewport_rect().size # set screensize for clamping
 
 func _process(delta):
-	#print(enemy_snowball_count) # prints out how many snowballs the enemy has
+	get_parent().get_node("HUD").check_snowball("Enemy", enemy_snowball_count)
 	check_state(enemy_state) # calls checkstate
 	velocity = Vector2(0, 0) # reset velocity
 	perform_state(enemy_state) # calls performstate
@@ -132,7 +134,6 @@ func velocity_down(direction, state):
 			velocity.y -= 1
 
 func enemy_attack(state):
-	print(state, "<----- Enemy attack state")
 	if state == "high_snow": # if state is highsnow
 		es = Snowball.instance() # instance a snowball
 		es.is_player_snowball = false # make it not a players
@@ -152,10 +153,6 @@ func enemy_attack(state):
 		get_node("LowSnowAttackTimer").start()
 		enemy_snowball_count -= 1
 	elif state == "out_of_snow":
-		#es = Snowball.instance()
-		#es.is_player_snowball = false
-		#es.start(position, player.position - position, "enemy")
-		#get_parent().add_child(es)
 		get_node("LowSnowAttackTimer").stop()
 		get_node("HighSnowAttackTimer").stop()
 
@@ -163,7 +160,7 @@ func enemy_place_wall():
 	wall = Snowwall.instance() # spawn in a SNOWWALL
 	enemy_wall_destroyed = false
 	wall.is_player_wall = false # set the snowwall as a player's snowwall
-	wall.start(Vector2(position.x - 75, snowball_position.y)) # place the wall at the enemys global mouse position
+	wall.start(Vector2(position.x - 75, snowball_position.y), true) # place the wall at the enemys global mouse position
 	get_parent().add_child(wall) # add the wall as a child of the tree
 	enemy_can_place_wall = false # don't let the player place another wall immediatley
 	get_node("EnemyWallPlaceTimer").start() # start the timer that will let you place another wall
@@ -173,9 +170,18 @@ func add_snow():
 	if enemy_snowball_count < enemy_max_snowball_count:
 		enemy_snowball_count += 1
 
+func player_die():
+	set_process(false)
+	if enemy_state == "high_snow":
+		get_node("HighSnowAttackTimer").stop()
+	elif enemy_state == "low_snow":
+		get_node("LowSnowAttackTimer").stop()
+
 func _on_Enemy_area_entered(area):
-	pass
-	# this will do stuff when the enemy is hit with a player snowball or dies of other reasons
+	if area.is_in_group("snowball"):
+		if area.is_player_snowball:
+			enemy_lives -= 1
+			get_parent().get_node("HUD").check_lives("Enemy", enemy_lives)
 
 func _on_SnowballWallCheck_area_entered(area):
 	if area.is_in_group("snowball"):

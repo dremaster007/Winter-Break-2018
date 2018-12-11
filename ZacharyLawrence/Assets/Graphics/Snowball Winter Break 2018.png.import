@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SnowBall.png-16f90d9426c695ceaca097f1e1ff1b90.stex"
+path="res://.import/Snowball Winter Break 2018.png-d507cd991d52629ab372a69bd7fa75b1.stex"
 
 [deps]
 
-source_file="res://Assets/Graphics/SnowBall.png"
-dest_files=[ "res://.import/SnowBall.png-16f90d9426c695ceaca097f1e1ff1b90.stex" ]
+source_file="res://Assets/Graphics/Snowball Winter Break 2018.png"
+dest_files=[ "res://.import/Snowball Winter Break 2018.png-d507cd991d52629ab372a69bd7fa75b1.stex" ]
 
 [params]
 

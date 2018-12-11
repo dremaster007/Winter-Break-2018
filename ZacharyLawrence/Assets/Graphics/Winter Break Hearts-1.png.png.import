@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SnowBall.png-16f90d9426c695ceaca097f1e1ff1b90.stex"
+path="res://.import/Winter Break Hearts-1.png.png-487566b3816cd5f76f585cf3068ae6ab.stex"
 
 [deps]
 
-source_file="res://Assets/Graphics/SnowBall.png"
-dest_files=[ "res://.import/SnowBall.png-16f90d9426c695ceaca097f1e1ff1b90.stex" ]
+source_file="res://Assets/Graphics/Winter Break Hearts-1.png.png"
+dest_files=[ "res://.import/Winter Break Hearts-1.png.png-487566b3816cd5f76f585cf3068ae6ab.stex" ]
 
 [params]
 

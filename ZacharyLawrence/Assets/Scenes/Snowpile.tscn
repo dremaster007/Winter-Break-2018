@@ -41,7 +41,7 @@ autostart = false
 [node name="EnemySnowAddTimer" type="Timer" parent="." index="3"]
 
 process_mode = 1
-wait_time = 0.75
+wait_time = 0.3
 one_shot = false
 autostart = false
 
