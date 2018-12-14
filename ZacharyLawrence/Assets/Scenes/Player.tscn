@@ -251,12 +251,38 @@ wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="DeathTimer" type="Timer" parent="." index="5"]
+[node name="ThrowingSound" type="AudioStreamPlayer2D" parent="." index="5"]
 
-process_mode = 1
-wait_time = 5.0
-one_shot = true
-autostart = false
+stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="WalkingSound" type="AudioStreamPlayer2D" parent="." index="6"]
+
+stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="WallPlacingSound" type="AudioStreamPlayer2D" parent="." index="7"]
+
+stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
 
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
 
@@ -265,7 +291,5 @@ autostart = false
 [connection signal="timeout" from="WallPlaceTimer" to="." method="_on_WallPlaceTimer_timeout"]
 
 [connection signal="timeout" from="WallDestroyTimer" to="." method="_on_WallDestroyTimer_timeout"]
-
-[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 
 

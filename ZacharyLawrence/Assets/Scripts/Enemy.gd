@@ -170,18 +170,13 @@ func add_snow():
 	if enemy_snowball_count < enemy_max_snowball_count:
 		enemy_snowball_count += 1
 
-func player_die():
-	set_process(false)
-	if enemy_state == "high_snow":
-		get_node("HighSnowAttackTimer").stop()
-	elif enemy_state == "low_snow":
-		get_node("LowSnowAttackTimer").stop()
-
 func _on_Enemy_area_entered(area):
 	if area.is_in_group("snowball"):
-		if area.is_player_snowball:
+		if area.is_player_snowball and area.snowball_can_hurt:
 			enemy_lives -= 1
 			get_parent().get_node("HUD").check_lives("Enemy", enemy_lives)
+		if enemy_lives <= 0:
+			get_parent().char_die("enemy")
 
 func _on_SnowballWallCheck_area_entered(area):
 	if area.is_in_group("snowball"):

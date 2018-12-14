@@ -1,9 +1,9 @@
 extends Node
 
-onready var player = get_parent().get_node("Player")
-onready var enemy = get_parent().get_node("Enemy")
+onready var player = get_parent().get_node("Player") # quick access
+onready var enemy = get_parent().get_node("Enemy") # quick access
 
-func check_lives(character, lives):
+func check_lives(character, lives): # send it who, and how many, it updates the HUD
 	if lives == 0:
 		get_node("%s/Health/Health1" % character).hide()
 		get_node("%s/Health/Health2" % character).hide()
@@ -21,7 +21,7 @@ func check_lives(character, lives):
 		get_node("%s/Health/Health2" % character).show()
 		get_node("%s/Health/Health3" % character).show()
 
-func check_snowball(character, snowball_count):
+func check_snowball(character, snowball_count): # send it who, and how many snowballs, updates HUD
 	if snowball_count == 0:
 		get_node("%s/Snowballs/Snowball1" % character).hide()
 		get_node("%s/Snowballs/Snowball2" % character).hide()
@@ -144,7 +144,7 @@ func check_snowball(character, snowball_count):
 		get_node("%s/Snowballs/Snowball9" % character).show()
 		get_node("%s/Snowballs/Snowball10" % character).show()
 
-func check_wall(character, can_place_wall):
+func check_wall(character, can_place_wall): # send it who and true/false, updates hud
 	if can_place_wall:
 		get_node("%s/Walls/Wall1" % character).show()
 	elif can_place_wall == false:
