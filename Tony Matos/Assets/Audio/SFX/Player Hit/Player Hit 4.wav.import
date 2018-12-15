@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Player Hit 4.wav-f039c0b5846d09f298a9136ac895a667.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/Player Hit/Player Hit 4.wav"
+dest_files=[ "res://.import/Player Hit 4.wav-f039c0b5846d09f298a9136ac895a667.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
