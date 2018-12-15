@@ -37,10 +37,10 @@ func _process(delta):
 	mouse_position = get_local_mouse_position() # local mouse position
 	global_mouse_position = get_global_mouse_position() # global mouse position
 	if velocity.y == 0: # if player is standing still
-		get_node("WalkingSound").stop()
+		get_node("WalkingSound").stop() # stop the walking sound
 		get_node("Sprite/AnimationPlayer").current_animation = "idle" # play idle anim
 	else:
-		get_node("WalkingSound").play()
+		get_node("WalkingSound").play() # play the walking sound
 	if paused == false: # if we can get inputs
 		get_input() # get inputs
 	if paused == true: # elsewise

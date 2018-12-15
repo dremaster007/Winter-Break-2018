@@ -6,9 +6,9 @@ var velocity = Vector2(0, 0) # We set this velocity in the main script
 export (int) var speed # speed of the snowball
 
 var is_player_snowball = true # is a player snowball
-var snowball_can_hurt = true
+var snowball_can_hurt = true # can the snowball hurt? (used for particles)
 
-var destroy_snowball = false
+var destroy_snowball = false # final decider if we destroy the snowball
 
 func start(pos, target, character): # called when snowball is instanced
 	position = pos # set the position of snowball
@@ -26,16 +26,16 @@ func _process(delta):
 	position += velocity * delta # move its position
 	if is_player_snowball: # if the player threw the snowball
 		if position.x > get_parent().get_node("Player").screensize.x * .95: # if the position is near end of screen
-			emit_particles()
-			if destroy_snowball:
+			emit_particles() # emit the particles
+			if destroy_snowball: # then if we can destroy the snowball
 				queue_free() # queue free the snowball
 	elif is_player_snowball == false: # if enemy threw it
 		if position.x < get_parent().get_node("Player").screensize.x * .05: # if position is just past player
-			emit_particles()
-			if destroy_snowball:
+			emit_particles() # emit the particles
+			if destroy_snowball: # if we can destroy the snowball
 				queue_free() # queue free the snowball
 
-func emit_particles():
+func emit_particles(): # disables the snowball except for particle2D
 	velocity = Vector2(0, 0) # stops the snowball
 	get_node("SnowballExplosion").emitting = true # emit particles
 	get_node("ParticleTimer").start() # start particle timer

@@ -181,51 +181,51 @@ func _on_Enemy_area_entered(area): # if the enemy enters an area
 		if enemy_lives <= 0: # if 0 life
 			get_parent().char_die("enemy") # call the die func in main
 
-func _on_SnowballWallCheck_area_entered(area): # 
-	if area.is_in_group("snowball"):
-		snowball_position = area.position
-		if area.is_player_snowball:
-			if enemy_can_place_wall:
-				enemy_place_wall()
+func _on_SnowballWallCheck_area_entered(area): # if the snowball wall check is triggered
+	if area.is_in_group("snowball"): # if its a snowball
+		snowball_position = area.position # set the snowballs position as the areas posiiton
+		if area.is_player_snowball and area.snowball_can_hurt: # if its a player snowball and is activated
+			if enemy_can_place_wall: # and enemy can place a wall
+				enemy_place_wall() # call place wall
 
-func _on_TopDodgeCheck_area_entered(area):
-	if area.is_in_group("snowball") and area.is_player_snowball:
-		get_node("OverrideSpeedTimer").start()
-		if area.velocity.y > 0:
-			velocity_down(false, enemy_state)
-		elif area.velocity.y <= 0:
-			velocity_down(true, enemy_state)
+func _on_TopDodgeCheck_area_entered(area): # if top dodge check
+	if area.is_in_group("snowball") and area.is_player_snowball: # if its a snowball and is a player snowball
+		get_node("OverrideSpeedTimer").start() # start the override speed timer
+		if area.velocity.y > 0: # if the snowball is moving downward
+			velocity_down(false, enemy_state) # move up
+		elif area.velocity.y <= 0: # if the snowball is moving upward
+			velocity_down(true, enemy_state) # move down
 
-func _on_BottomDodgeCheck_area_entered(area):
-	if area.is_in_group("snowball") and area.is_player_snowball:
-		get_node("OverrideSpeedTimer").start()
-		if area.velocity.y > 0:
-			velocity_down(true, enemy_state)
-		elif area.velocity.y <= 0:
-			velocity_down(false, enemy_state)
+func _on_BottomDodgeCheck_area_entered(area): # if bottom dodge check
+	if area.is_in_group("snowball") and area.is_player_snowball: # if its a snowball and is a player snowball
+		get_node("OverrideSpeedTimer").start() # start the override speed timer
+		if area.velocity.y > 0: # if the snowball is moving downward
+			velocity_down(true, enemy_state) # move down
+		elif area.velocity.y <= 0: # if the snowball is moving upward
+			velocity_down(false, enemy_state) # move up
 
-func _on_DirectionSwapTimer_timeout():
-	get_node("DirectionSwapTimer").wait_time = rand_range(swapTimeMin, swapTimeMax)
-	if move_down == true:
-		move_down = false
-	elif move_down == false:
-		move_down = true
+func _on_DirectionSwapTimer_timeout(): # if the directional swap timer times out
+	get_node("DirectionSwapTimer").wait_time = rand_range(swapTimeMin, swapTimeMax) # get a random wait time
+	if move_down == true: # if we were moving down
+		move_down = false # move up
+	elif move_down == false: # if we were moving up
+		move_down = true # move down
 
-func _on_EnemyWallPlaceTimer_timeout():
-	enemy_can_place_wall = true
+func _on_EnemyWallPlaceTimer_timeout(): # if the enemywallplacetimer times out
+	enemy_can_place_wall = true # enemy can now place wall
 
-func _on_EnemyWallDestroyTimer_timeout():
-	if enemy_wall_destroyed == false:
-		if wall.is_player_wall == false:
-			wall.queue_free()
-	else:
-		pass
+func _on_EnemyWallDestroyTimer_timeout(): # if wall destroy timer times out
+	if enemy_wall_destroyed == false: # if the wall isnt already destroyed
+		if wall.is_player_wall == false: # if the wall isnt a player wall
+			wall.queue_free() # queue free the wall
+	else: # else
+		pass # nothing
 
-func _on_HighSnowAttackTimer_timeout():
-	enemy_attack("high_snow")
+func _on_HighSnowAttackTimer_timeout(): # if the high snow attack timer
+	enemy_attack("high_snow") # attack in high snow state
 
-func _on_LowSnowAttackTimer_timeout():
-	enemy_attack("low_snow")
+func _on_LowSnowAttackTimer_timeout(): # if the low snow attack timer
+	enemy_attack("low_snow") # attack in low snow state
 
-func _on_OverrideSpeedTimer_timeout():
-	speed = 300
+func _on_OverrideSpeedTimer_timeout(): # this literally does nothing
+	speed = 300 # oopsie

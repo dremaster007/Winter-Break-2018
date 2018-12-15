@@ -1,15 +1,24 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/SnowBall.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Graphics/BG Winter Break-1.png (1).png" type="Texture" id=3]
-[ext_resource path="res://Assets/Graphics/Winter Break snowfall-1.png.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Scenes/Snowpile.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Assets/Music/Winter Main Theme.wav" type="AudioStream" id=9]
-[ext_resource path="res://Assets/Scenes/HUD.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/Graphics/Environment/Background.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Font/Signboard.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/Graphics/Environment/Snowfall_Particles.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Scenes/Snowpile.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Music/Winter Main Theme.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Scenes/HUD.tscn" type="PackedScene" id=11]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 80
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 4 )
+_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="ParticlesMaterial" id=2]
 
@@ -51,7 +60,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Emission Shape" ]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = ExtResource( 1 )
 Snowball = ExtResource( 2 )
@@ -63,7 +72,32 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Particles2D" type="Particles2D" parent="." index="1"]
+[node name="CountdownLabel" type="Label" parent="." index="1"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.0
+margin_top = -39.0
+margin_right = 23.0
+margin_bottom = 38.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "3"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="Particles2D" type="Particles2D" parent="." index="2"]
 
 position = Vector2( 512, 0 )
 scale = Vector2( 0.5, 0.5 )
@@ -81,82 +115,71 @@ visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
 process_material = SubResource( 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 normal_map = null
 h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Process Material", "Textures", "Time", "Transform" ]
 
-[node name="Snowpile" parent="." index="2" instance=ExtResource( 5 )]
+[node name="Snowpile" parent="." index="3" instance=ExtResource( 6 )]
 
 position = Vector2( 70, 50 )
 
-[node name="Snowpile4" parent="." index="3" instance=ExtResource( 5 )]
+[node name="Snowpile4" parent="." index="4" instance=ExtResource( 6 )]
 
 position = Vector2( 956, 50 )
 
-[node name="Snowpile5" parent="." index="4" instance=ExtResource( 5 )]
+[node name="Snowpile5" parent="." index="5" instance=ExtResource( 6 )]
 
 position = Vector2( 70, 560 )
 
-[node name="Snowpile6" parent="." index="5" instance=ExtResource( 5 )]
+[node name="Snowpile6" parent="." index="6" instance=ExtResource( 6 )]
 
 position = Vector2( 956, 556 )
 
-[node name="Player" parent="." index="6" instance=ExtResource( 6 )]
+[node name="Player" parent="." index="7" instance=ExtResource( 7 )]
 
-[node name="Enemy" parent="." index="7" instance=ExtResource( 7 )]
+[node name="Enemy" parent="." index="8" instance=ExtResource( 8 )]
 
-Snowwall = ExtResource( 8 )
+Snowwall = ExtResource( 9 )
 
-[node name="PlayerStartPosition" type="Position2D" parent="." index="8"]
+[node name="PlayerStartPosition" type="Position2D" parent="." index="9"]
 
 position = Vector2( 75, 300 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="EnemyStartPosition" type="Position2D" parent="." index="9"]
+[node name="EnemyStartPosition" type="Position2D" parent="." index="10"]
 
 position = Vector2( 950, 300 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="SnowWall" parent="." index="10" instance=ExtResource( 8 )]
+[node name="MainThemeBGM" type="AudioStreamPlayer" parent="." index="11"]
 
-position = Vector2( 180.448, 168.145 )
-
-[node name="SnowWall2" parent="." index="11" instance=ExtResource( 8 )]
-
-position = Vector2( 178.397, 467.524 )
-
-[node name="SnowWall3" parent="." index="12" instance=ExtResource( 8 )]
-
-position = Vector2( 801.762, 147.639 )
-rotation = 3.14159
-is_player_wall = false
-
-[node name="SnowWall4" parent="." index="13" instance=ExtResource( 8 )]
-
-position = Vector2( 803.08, 457.23 )
-rotation = 3.14159
-is_player_wall = false
-
-[node name="MainThemeBGM" type="AudioStreamPlayer" parent="." index="14"]
-
-stream = ExtResource( 9 )
+stream = ExtResource( 10 )
 volume_db = -18.0
 pitch_scale = 2.0
 autoplay = true
 mix_target = 0
 bus = "Master"
 
-[node name="HUD" parent="." index="15" instance=ExtResource( 10 )]
+[node name="HUD" parent="." index="12" instance=ExtResource( 11 )]
 
-[node name="DeathTimer" type="Timer" parent="." index="16"]
+[node name="DeathTimer" type="Timer" parent="." index="13"]
 
 process_mode = 1
 wait_time = 5.0
 one_shot = true
 autostart = false
 
+[node name="GameStartTimer" type="Timer" parent="." index="14"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+
+[connection signal="timeout" from="GameStartTimer" to="." method="_on_GameStartTimer_timeout"]
 
 

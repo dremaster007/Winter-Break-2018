@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Scripts/SnowWall.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Graphics/Winter Break 2018 Wall-1.png.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Graphics/Environment/Snowwalls.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
