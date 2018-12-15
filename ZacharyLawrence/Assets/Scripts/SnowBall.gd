@@ -36,11 +36,11 @@ func _process(delta):
 				queue_free() # queue free the snowball
 
 func emit_particles():
-	velocity = Vector2(0, 0)
+	velocity = Vector2(0, 0) # stops the snowball
 	get_node("SnowballExplosion").emitting = true # emit particles
 	get_node("ParticleTimer").start() # start particle timer
 	get_node("Sprite").hide() # hide the sprite
-	snowball_can_hurt = false
+	snowball_can_hurt = false # basically disables the whole snowball
 
-func _on_ParticleTimer_timeout():
-	destroy_snowball = true
+func _on_ParticleTimer_timeout(): # when the timer times out
+	destroy_snowball = true # can now fully destroy (queue free) the snowball

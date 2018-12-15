@@ -16,10 +16,10 @@ func _process(delta):
 			enemy_can_add_snowball = false # now enemy can't
 			get_node("EnemySnowAddTimer").start() # start the enemy timer that will add snow to enemy
 
-func _on_Snowpile_area_entered(area):
-	if area.is_in_group("player"):
-		player_is_in_snowpile = true
-	if area.is_in_group("enemy"):
+func _on_Snowpile_area_entered(area): # if the snowpile enters an area
+	if area.is_in_group("player"): # if the player enters
+		player_is_in_snowpile = true # player is now in snowpile
+	if area.is_in_group("enemy"): # 
 		enemy_is_in_snowpile = true
 
 func _on_Snowpile_area_exited(area): # if you leave the area,

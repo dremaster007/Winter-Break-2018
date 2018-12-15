@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Scripts/HUD.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Graphics/Winter Break Hearts-1.png.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Graphics/Snowball Winter Break 2018.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Graphics/Winter Break 2018 Wall-1.png.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Graphics/Winter Break Sign (2).png" type="Texture" id=2]
+[ext_resource path="res://Assets/Graphics/Winter Break Hearts-1.png.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Graphics/Snowball Winter Break 2018.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Graphics/Winter Break 2018 Wall-1.png.png" type="Texture" id=5]
 
 [node name="HUD" type="Node"]
 
@@ -26,16 +27,36 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Margin", "Rect", "Size Flags" ]
 
-[node name="Health" type="Container" parent="Player" index="0"]
+[node name="Top Sign" type="Sprite" parent="Player" index="0"]
 
+position = Vector2( 213.862, 39.1882 )
+scale = Vector2( 1, 0.85 )
+texture = ExtResource( 2 )
+vframes = 2
+hframes = 2
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="Bottom Sign" type="Sprite" parent="Player" index="1"]
+
+position = Vector2( 236.534, 361.142 )
+scale = Vector2( 1, 0.856827 )
+texture = ExtResource( 2 )
+vframes = 2
+hframes = 2
+frame = 2
+_sections_unfolded = [ "Animation" ]
+
+[node name="Health" type="Container" parent="Player" index="2"]
+
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 247.0
-margin_top = 375.0
-margin_right = 287.0
-margin_bottom = 415.0
+margin_left = 221.0
+margin_top = 369.0
+margin_right = 261.0
+margin_bottom = 409.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -48,24 +69,24 @@ _sections_unfolded = [ "Rect" ]
 
 position = Vector2( -5, 0 )
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 _sections_unfolded = [ "Animation", "Transform" ]
 
 [node name="Health2" type="Sprite" parent="Player/Health" index="1"]
 
 position = Vector2( 17.5, 0 )
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 _sections_unfolded = [ "Animation", "Transform" ]
 
 [node name="Health3" type="Sprite" parent="Player/Health" index="2"]
 
 position = Vector2( 40, 0 )
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 _sections_unfolded = [ "Animation", "Transform" ]
 
-[node name="Snowballs" type="Container" parent="Player" index="1"]
+[node name="Snowballs" type="Container" parent="Player" index="3"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -73,9 +94,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 182.0
-margin_top = 26.0
+margin_top = 30.0
 margin_right = 222.0
-margin_bottom = 66.0
+margin_bottom = 70.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -86,7 +107,7 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Snowball1" type="Sprite" parent="Player/Snowballs" index="0"]
 
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 2
@@ -95,7 +116,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball2" type="Sprite" parent="Player/Snowballs" index="1"]
 
 position = Vector2( 7.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 1
@@ -104,7 +125,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball3" type="Sprite" parent="Player/Snowballs" index="2"]
 
 position = Vector2( 15, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 2
@@ -113,7 +134,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball4" type="Sprite" parent="Player/Snowballs" index="3"]
 
 position = Vector2( 22.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Transform" ]
@@ -121,7 +142,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Snowball5" type="Sprite" parent="Player/Snowballs" index="4"]
 
 position = Vector2( 30, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Transform" ]
@@ -129,7 +150,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Snowball6" type="Sprite" parent="Player/Snowballs" index="5"]
 
 position = Vector2( 37.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Transform" ]
@@ -137,7 +158,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Snowball7" type="Sprite" parent="Player/Snowballs" index="6"]
 
 position = Vector2( 45, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 1
@@ -146,7 +167,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball8" type="Sprite" parent="Player/Snowballs" index="7"]
 
 position = Vector2( 52.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Transform" ]
@@ -154,7 +175,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Snowball9" type="Sprite" parent="Player/Snowballs" index="8"]
 
 position = Vector2( 60, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 1
@@ -163,22 +184,21 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball10" type="Sprite" parent="Player/Snowballs" index="9"]
 
 position = Vector2( 67.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Animation", "Transform" ]
 
-[node name="Walls" type="Container" parent="Player" index="2"]
+[node name="Walls" type="Container" parent="Player" index="4"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 191.0
-margin_top = 371.0
+margin_top = 58.0
 margin_right = 231.0
-margin_bottom = 411.0
+margin_bottom = 98.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -189,8 +209,10 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Wall1" type="Sprite" parent="Player/Walls" index="0"]
 
+position = Vector2( 44.0125, 6.16175 )
 rotation = 4.71239
-texture = ExtResource( 4 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Enemy" type="Container" parent="." index="1"]
@@ -212,16 +234,37 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="Health" type="Container" parent="Enemy" index="0"]
+[node name="Top Sign2" type="Sprite" parent="Enemy" index="0"]
+
+position = Vector2( 17.2325, 5.85489 )
+scale = Vector2( 1, 0.85 )
+texture = ExtResource( 2 )
+vframes = 2
+hframes = 2
+frame = 1
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="Bottom Sign2" type="Sprite" parent="Enemy" index="1"]
+
+position = Vector2( 51.183, 327.809 )
+scale = Vector2( 1, 0.856827 )
+texture = ExtResource( 2 )
+vframes = 2
+hframes = 2
+frame = 2
+_sections_unfolded = [ "Animation" ]
+
+[node name="Health" type="Container" parent="Enemy" index="2"]
 
 editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 341.0
-margin_right = 40.0
-margin_bottom = 381.0
+margin_left = 31.0
+margin_top = 335.0
+margin_right = 71.0
+margin_bottom = 375.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -234,24 +277,24 @@ _sections_unfolded = [ "Rect" ]
 
 position = Vector2( -5, 0 )
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 _sections_unfolded = [ "Animation", "Transform" ]
 
 [node name="Health2" type="Sprite" parent="Enemy/Health" index="1"]
 
 position = Vector2( 17.5, 0 )
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 _sections_unfolded = [ "Animation", "Transform" ]
 
 [node name="Health3" type="Sprite" parent="Enemy/Health" index="2"]
 
 position = Vector2( 40, 0 )
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 _sections_unfolded = [ "Animation", "Transform" ]
 
-[node name="Snowballs" type="Container" parent="Enemy" index="1"]
+[node name="Snowballs" type="Container" parent="Enemy" index="3"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -259,9 +302,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -14.0
-margin_top = -8.0
+margin_top = -2.0
 margin_right = 26.0
-margin_bottom = 32.0
+margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -272,7 +315,7 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Snowball1" type="Sprite" parent="Enemy/Snowballs" index="0"]
 
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 2
@@ -281,7 +324,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball2" type="Sprite" parent="Enemy/Snowballs" index="1"]
 
 position = Vector2( 7.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 1
@@ -290,7 +333,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball3" type="Sprite" parent="Enemy/Snowballs" index="2"]
 
 position = Vector2( 15, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 2
@@ -299,7 +342,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball4" type="Sprite" parent="Enemy/Snowballs" index="3"]
 
 position = Vector2( 22.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Transform" ]
@@ -307,7 +350,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Snowball5" type="Sprite" parent="Enemy/Snowballs" index="4"]
 
 position = Vector2( 30, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Transform" ]
@@ -315,7 +358,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Snowball6" type="Sprite" parent="Enemy/Snowballs" index="5"]
 
 position = Vector2( 37.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Transform" ]
@@ -323,7 +366,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Snowball7" type="Sprite" parent="Enemy/Snowballs" index="6"]
 
 position = Vector2( 45, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 1
@@ -332,7 +375,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball8" type="Sprite" parent="Enemy/Snowballs" index="7"]
 
 position = Vector2( 52.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Transform" ]
@@ -340,7 +383,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Snowball9" type="Sprite" parent="Enemy/Snowballs" index="8"]
 
 position = Vector2( 60, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 frame = 1
@@ -349,12 +392,12 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Snowball10" type="Sprite" parent="Enemy/Snowballs" index="9"]
 
 position = Vector2( 67.5, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 2
 hframes = 2
 _sections_unfolded = [ "Animation", "Transform" ]
 
-[node name="Walls" type="Container" parent="Enemy" index="2"]
+[node name="Walls" type="Container" parent="Enemy" index="4"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -362,9 +405,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 9.0
-margin_top = 325.0
+margin_top = 12.0
 margin_right = 49.0
-margin_bottom = 365.0
+margin_bottom = 52.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -374,9 +417,10 @@ size_flags_vertical = 1
 
 [node name="Wall1" type="Sprite" parent="Enemy/Walls" index="0"]
 
-position = Vector2( 79.6439, 12.5 )
+position = Vector2( -12.7359, 18.2991 )
 rotation = 4.71239
-texture = ExtResource( 4 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 
 

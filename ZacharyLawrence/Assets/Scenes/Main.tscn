@@ -1,14 +1,55 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/SnowBall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Graphics/BG Winter Break-1.png (1).png" type="Texture" id=3]
-[ext_resource path="res://Assets/Scenes/Snowpile.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Music/Winter Main Theme.wav" type="AudioStream" id=8]
-[ext_resource path="res://Assets/Scenes/HUD.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Graphics/Winter Break snowfall-1.png.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Scenes/Snowpile.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Music/Winter Main Theme.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Scenes/HUD.tscn" type="PackedScene" id=10]
+
+[sub_resource type="ParticlesMaterial" id=2]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 2
+emission_box_extents = Vector3( 1024, 1, 1 )
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 45.0
+flatness = 0.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 1.0
+scale_random = 0.0
+color = Color( 1, 1, 1, 1 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Emission Shape" ]
 
 [node name="Main" type="Node"]
 
@@ -22,70 +63,94 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Snowpile" parent="." index="1" instance=ExtResource( 4 )]
+[node name="Particles2D" type="Particles2D" parent="." index="1"]
+
+position = Vector2( 512, 0 )
+scale = Vector2( 0.5, 0.5 )
+emitting = true
+amount = 50
+lifetime = 5.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 2 )
+texture = ExtResource( 4 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Process Material", "Textures", "Time", "Transform" ]
+
+[node name="Snowpile" parent="." index="2" instance=ExtResource( 5 )]
 
 position = Vector2( 70, 50 )
 
-[node name="Snowpile4" parent="." index="2" instance=ExtResource( 4 )]
+[node name="Snowpile4" parent="." index="3" instance=ExtResource( 5 )]
 
 position = Vector2( 956, 50 )
 
-[node name="Snowpile5" parent="." index="3" instance=ExtResource( 4 )]
+[node name="Snowpile5" parent="." index="4" instance=ExtResource( 5 )]
 
 position = Vector2( 70, 560 )
 
-[node name="Snowpile6" parent="." index="4" instance=ExtResource( 4 )]
+[node name="Snowpile6" parent="." index="5" instance=ExtResource( 5 )]
 
 position = Vector2( 956, 556 )
 
-[node name="Player" parent="." index="5" instance=ExtResource( 5 )]
+[node name="Player" parent="." index="6" instance=ExtResource( 6 )]
 
-[node name="Enemy" parent="." index="6" instance=ExtResource( 6 )]
+[node name="Enemy" parent="." index="7" instance=ExtResource( 7 )]
 
-Snowwall = ExtResource( 7 )
+Snowwall = ExtResource( 8 )
 
-[node name="PlayerStartPosition" type="Position2D" parent="." index="7"]
+[node name="PlayerStartPosition" type="Position2D" parent="." index="8"]
 
 position = Vector2( 75, 300 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="EnemyStartPosition" type="Position2D" parent="." index="8"]
+[node name="EnemyStartPosition" type="Position2D" parent="." index="9"]
 
 position = Vector2( 950, 300 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="SnowWall" parent="." index="9" instance=ExtResource( 7 )]
+[node name="SnowWall" parent="." index="10" instance=ExtResource( 8 )]
 
 position = Vector2( 180.448, 168.145 )
 
-[node name="SnowWall2" parent="." index="10" instance=ExtResource( 7 )]
+[node name="SnowWall2" parent="." index="11" instance=ExtResource( 8 )]
 
 position = Vector2( 178.397, 467.524 )
 
-[node name="SnowWall3" parent="." index="11" instance=ExtResource( 7 )]
+[node name="SnowWall3" parent="." index="12" instance=ExtResource( 8 )]
 
 position = Vector2( 801.762, 147.639 )
 rotation = 3.14159
 is_player_wall = false
 
-[node name="SnowWall4" parent="." index="12" instance=ExtResource( 7 )]
+[node name="SnowWall4" parent="." index="13" instance=ExtResource( 8 )]
 
 position = Vector2( 803.08, 457.23 )
 rotation = 3.14159
 is_player_wall = false
 
-[node name="MainThemeBGM" type="AudioStreamPlayer" parent="." index="13"]
+[node name="MainThemeBGM" type="AudioStreamPlayer" parent="." index="14"]
 
-stream = ExtResource( 8 )
+stream = ExtResource( 9 )
 volume_db = -18.0
 pitch_scale = 2.0
 autoplay = true
 mix_target = 0
 bus = "Master"
 
-[node name="HUD" parent="." index="14" instance=ExtResource( 9 )]
+[node name="HUD" parent="." index="15" instance=ExtResource( 10 )]
 
-[node name="DeathTimer" type="Timer" parent="." index="15"]
+[node name="DeathTimer" type="Timer" parent="." index="16"]
 
 process_mode = 1
 wait_time = 5.0

@@ -1,6 +1,5 @@
 extends Node
 
-
 ####### 1) move some code around, move attacking to their respective scenes/scipts
 ####### 2) players areas (snowpile) to refill snow
 ####### 3) create an ai that follows rules of the game
@@ -8,6 +7,7 @@ extends Node
 #######    how to react
 ####### 4) HUD creation
 # 5) Main menu/Death menu
+# 6) pollish, particles, animations, finished sprites
 
 var wall # initialize the wall
 
