@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/SnowBall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Graphics/Player Models/Player.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sounds/Walking Loop.wav" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Sounds/Player Hit/Player Hit 1.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
 
@@ -181,7 +183,7 @@ tracks/2/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 10, 23.9167 )
 
-[node name="Player" type="Area2D" groups=[
+[node name="Player" type="Area2D" index="0" groups=[
 "player",
 ]]
 
@@ -264,8 +266,8 @@ area_mask = 1
 
 [node name="WalkingSound" type="AudioStreamPlayer2D" parent="." index="6"]
 
-stream = null
-volume_db = 0.0
+stream = ExtResource( 5 )
+volume_db = -20.0
 pitch_scale = 1.0
 autoplay = false
 max_distance = 2000.0
@@ -276,6 +278,17 @@ area_mask = 1
 [node name="WallPlacingSound" type="AudioStreamPlayer2D" parent="." index="7"]
 
 stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="." index="8"]
+
+stream = ExtResource( 6 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false

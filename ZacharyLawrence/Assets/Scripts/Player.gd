@@ -40,13 +40,17 @@ func _process(delta):
 		get_node("WalkingSound").stop() # stop the walking sound
 		get_node("Sprite/AnimationPlayer").current_animation = "idle" # play idle anim
 	else:
-		get_node("WalkingSound").play() # play the walking sound
+		play_walking_sound()
 	if paused == false: # if we can get inputs
 		get_input() # get inputs
 	if paused == true: # elsewise
 		velocity = Vector2(0,0) # completely stop the player
 	position.y = clamp(position.y, screensize.y * .1, screensize.y * .9) # clamp the player
 	position += velocity * delta * speed # move his position
+
+func play_walking_sound():
+	if get_node("WalkingSound").playing == false:
+		get_node("WalkingSound").playing = true
 
 func get_input():
 	velocity = Vector2() # reset the velocity
@@ -90,8 +94,28 @@ func add_snow():
 		if snowball_count < max_snowball_count: # if we dont have maxxed out snowballs
 			snowball_count += 1 # add a snowball
 
+func get_hurt_sound(random_num):
+	if random_num == 0:
+		return "res://Assets/Sounds/Player Hit/Player Hit 1.wav"
+	if random_num == 1:
+		return "res://Assets/Sounds/Player Hit/Player Hit 2.wav"
+	if random_num == 2:
+		return "res://Assets/Sounds/Player Hit/Player Hit 3.wav"
+	if random_num == 3:
+		return "res://Assets/Sounds/Player Hit/Player Hit 4.wav"
+	if random_num == 4:
+		return "res://Assets/Sounds/Player Hit/Player Hit 5.wav"
+	if random_num == 5:
+		return "res://Assets/Sounds/Player Hit/Player Hit 6.wav"
+	if random_num == 6:
+		return "res://Assets/Sounds/Player Hit/Player Hit 7.wav"
+
 func _on_Player_area_entered(area): # whenever the player enters...
 	if area.is_in_group("snowball") and area.is_player_snowball == false and area.snowball_can_hurt: # if its a snowball from enemy
+		var random_num = randi() % 7
+		var hurt_sound = get_hurt_sound(random_num)
+		print (hurt_sound)
+		print (get_node("HurtSound").stream)
 		lives -= 1 # decrement lives
 	if lives <= 0: # if at 0 life
 		get_parent().char_die("player") # call die in main

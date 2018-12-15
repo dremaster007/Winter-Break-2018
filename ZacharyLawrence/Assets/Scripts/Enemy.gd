@@ -41,8 +41,6 @@ func _process(delta):
 	check_state(enemy_state) # calls checkstate
 	velocity = Vector2(0, 0) # reset velocity
 	perform_state(enemy_state) # calls performstate
-	print (enemy_state)
-	print (velocity)
 	position += velocity * delta * speed # increase velocity
 	position.y = clamp(position.y, screensize.y * .1, screensize.y * .9) # clamp the enemy
 
