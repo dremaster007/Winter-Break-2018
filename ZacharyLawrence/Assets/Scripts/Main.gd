@@ -1,11 +1,5 @@
 extends Node
 
-####### 1) move some code around, move attacking to their respective scenes/scipts
-####### 2) players areas (snowpile) to refill snow
-####### 3) create an ai that follows rules of the game
-#######    tracks players movements, knows where they are, and how
-#######    how to react
-####### 4) HUD creation
 # 5) Main menu/Death menu
 # 6) polish, particles, animations, finished sprites
 
@@ -21,7 +15,6 @@ onready var player_start_pos = get_node("PlayerStartPosition")  # ez access to p
 onready var enemy_start_pos = get_node("EnemyStartPosition") # ez access to enemies start position
 
 func _ready():
-	get_node("MainThemeBGM").playing = true # start the jams
 	player.position = player_start_pos.position # make the player spawn at his position
 	enemy.position = enemy_start_pos.position # make the enemy spawn at their location
 	enemy.set_process(false) # disable the enemy
@@ -35,6 +28,16 @@ func _process(delta):
 		get_node("CountdownLabel").text = "2" # set text to 2
 	if get_node("GameStartTimer").time_left < 1 and get_node("GameStartTimer").time_left > 0: # if timer is between 0 and 1
 		get_node("CountdownLabel").text = "1" # set text to 1
+	if get_node("DeathTimer").time_left < 5 and get_node("DeathTimer").time_left > 4:
+		get_node("CountdownLabel").text = "5"
+	if get_node("DeathTimer").time_left < 4 and get_node("DeathTimer").time_left > 3:
+		get_node("CountdownLabel").text = "4"
+	if get_node("DeathTimer").time_left < 3 and get_node("DeathTimer").time_left > 2:
+		get_node("CountdownLabel").text = "3"
+	if get_node("DeathTimer").time_left < 2 and get_node("DeathTimer").time_left > 1:
+		get_node("CountdownLabel").text = "2"
+	if get_node("DeathTimer").time_left < 1 and get_node("DeathTimer").time_left > 0:
+		get_node("CountdownLabel").text = "1"
 
 func new_game():
 	enemy.set_process(false) # disable the enemy
@@ -51,6 +54,7 @@ func new_game():
 	get_node("CountdownLabel").text = "" # change the text on countdown label to nothing
 	player.paused = false # no longer paused if previously true
 	enemy.set_process(true) # reset the process of enemy
+	get_node("MessageLabel").text = ""
 	get_node("Enemy/DirectionSwapTimer").start() # start timer for ai direction swapping
 	get_node("Enemy/HighSnowAttackTimer").start() # start the enemys timer at the correct time
 
@@ -63,9 +67,9 @@ func char_die(character): # whenever a character dies
 	elif enemy.enemy_state == "low_snow": # in low snow
 		get_node("Enemy/LowSnowAttackTimer").stop() # stop that timer as well
 	if character == "player": # if the character that died is the player
-		print ("the player has died") # do stuff respectively
+		get_node("MessageLabel").text = "The enemy has won!"
 	elif character == "enemy": # otherwise
-		print ("the enemy has died") # do stuff for enemy
+		get_node("MessageLabel").text = "You have won!"
 
 func _on_DeathTimer_timeout(): # timer for in between game and starting a new one
 	new_game() # calling new game

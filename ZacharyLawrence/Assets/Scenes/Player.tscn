@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/SnowBall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Scenes/SnowWall.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Graphics/Player Models/Player.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Sounds/Walking Loop.wav" type="AudioStream" id=5]
-[ext_resource path="res://Assets/Sounds/Player Hit/Player Hit 1.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sounds/Player Hit/Player Hit 1.wav" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Sounds/Player Hit/Player Hit 3.wav" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Sounds/Player Hit/Player Hit 5.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Graphics/Player Models/Player.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sounds/Walking Loop.wav" type="AudioStream" id=8]
 
 [sub_resource type="Animation" id=1]
 
@@ -183,7 +185,7 @@ tracks/2/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 10, 23.9167 )
 
-[node name="Player" type="Area2D" index="0" groups=[
+[node name="Player" type="Area2D" groups=[
 "player",
 ]]
 
@@ -199,6 +201,9 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 Snowball = ExtResource( 2 )
 Snowwall = ExtResource( 3 )
+PlayerHit1 = ExtResource( 4 )
+PlayerHit2 = ExtResource( 5 )
+PlayerHit3 = ExtResource( 6 )
 speed = 300
 screensize = Vector2( 0, 0 )
 snowball_count = 10
@@ -206,7 +211,7 @@ max_snowball_count = 10
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
-texture = ExtResource( 4 )
+texture = ExtResource( 7 )
 offset = Vector2( 0, 3 )
 vframes = 5
 hframes = 3
@@ -266,8 +271,8 @@ area_mask = 1
 
 [node name="WalkingSound" type="AudioStreamPlayer2D" parent="." index="6"]
 
-stream = ExtResource( 5 )
-volume_db = -20.0
+stream = ExtResource( 8 )
+volume_db = -5.0
 pitch_scale = 1.0
 autoplay = false
 max_distance = 2000.0
@@ -288,7 +293,7 @@ area_mask = 1
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="." index="8"]
 
-stream = ExtResource( 6 )
+stream = ExtResource( 4 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false

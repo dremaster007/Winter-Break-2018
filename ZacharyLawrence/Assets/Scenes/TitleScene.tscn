@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Scripts/TitleScene.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Graphics/Environment/Background.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/Font/Signboard.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Assets/Graphics/Player Indiv. Sprites/Winter-Break-2018-Player_03.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Graphics/Environment/Snowfall_Particles.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Music/Winter Main Theme.wav" type="AudioStream" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -73,7 +74,7 @@ script = ExtResource( 1 )
 position = Vector2( 512, 300 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Region" ]
 
 [node name="TitleSign" type="Sprite" parent="." index="1"]
 
@@ -193,6 +194,15 @@ normal_map = null
 h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Time" ]
+
+[node name="MainThemeBGM" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 8 )
+volume_db = -18.0
+pitch_scale = 2.0
+autoplay = true
+mix_target = 0
+bus = "Master"
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
 

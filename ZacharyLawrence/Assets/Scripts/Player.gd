@@ -5,6 +5,10 @@ extends Area2D
 export (PackedScene) var Snowball # export the snowball scene
 export (PackedScene) var Snowwall # export the snowwall scene
 
+export (AudioStream) var PlayerHit1
+export (AudioStream) var PlayerHit2
+export (AudioStream) var PlayerHit3
+
 var lives = 3
 
 export (int) var speed # how fast player walks
@@ -39,8 +43,8 @@ func _process(delta):
 	if velocity.y == 0: # if player is standing still
 		get_node("WalkingSound").stop() # stop the walking sound
 		get_node("Sprite/AnimationPlayer").current_animation = "idle" # play idle anim
-	else:
-		play_walking_sound()
+	else: # if player is starting to move 
+		play_walking_sound() # then call walking_sound
 	if paused == false: # if we can get inputs
 		get_input() # get inputs
 	if paused == true: # elsewise
@@ -94,28 +98,20 @@ func add_snow():
 		if snowball_count < max_snowball_count: # if we dont have maxxed out snowballs
 			snowball_count += 1 # add a snowball
 
-func get_hurt_sound(random_num):
-	if random_num == 0:
-		return "res://Assets/Sounds/Player Hit/Player Hit 1.wav"
-	if random_num == 1:
-		return "res://Assets/Sounds/Player Hit/Player Hit 2.wav"
-	if random_num == 2:
-		return "res://Assets/Sounds/Player Hit/Player Hit 3.wav"
-	if random_num == 3:
-		return "res://Assets/Sounds/Player Hit/Player Hit 4.wav"
-	if random_num == 4:
-		return "res://Assets/Sounds/Player Hit/Player Hit 5.wav"
-	if random_num == 5:
-		return "res://Assets/Sounds/Player Hit/Player Hit 6.wav"
-	if random_num == 6:
-		return "res://Assets/Sounds/Player Hit/Player Hit 7.wav"
+func play_hurt_noise(hurt_noise):
+	if hurt_noise == 0:
+		get_node("HurtSound").stream = PlayerHit1
+		get_node("HurtSound").playing = true
+	if hurt_noise == 1:
+		get_node("HurtSound").stream = PlayerHit2
+		get_node("HurtSound").playing = true
+	if hurt_noise == 2:
+		get_node("HurtSound").stream = PlayerHit3
+		get_node("HurtSound").playing = true
 
 func _on_Player_area_entered(area): # whenever the player enters...
 	if area.is_in_group("snowball") and area.is_player_snowball == false and area.snowball_can_hurt: # if its a snowball from enemy
-		var random_num = randi() % 7
-		var hurt_sound = get_hurt_sound(random_num)
-		print (hurt_sound)
-		print (get_node("HurtSound").stream)
+		play_hurt_noise(randi() % 3)
 		lives -= 1 # decrement lives
 	if lives <= 0: # if at 0 life
 		get_parent().char_die("player") # call die in main

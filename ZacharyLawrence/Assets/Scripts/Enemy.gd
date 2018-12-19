@@ -38,6 +38,7 @@ func _ready():
 
 func _process(delta):
 	get_parent().get_node("HUD").check_snowball("Enemy", enemy_snowball_count) # update HUD
+	get_parent().get_node("HUD").check_lives("Enemy", enemy_lives) # update HUD
 	check_state(enemy_state) # calls checkstate
 	velocity = Vector2(0, 0) # reset velocity
 	perform_state(enemy_state) # calls performstate
@@ -190,16 +191,20 @@ func _on_TopDodgeCheck_area_entered(area): # if top dodge check
 	if area.is_in_group("snowball") and area.is_player_snowball: # if its a snowball and is a player snowball
 		get_node("OverrideSpeedTimer").start() # start the override speed timer
 		if area.velocity.y > 0: # if the snowball is moving downward
+			speed = 400
 			velocity_down(false, enemy_state) # move up
 		elif area.velocity.y <= 0: # if the snowball is moving upward
+			speed = 400
 			velocity_down(true, enemy_state) # move down
 
 func _on_BottomDodgeCheck_area_entered(area): # if bottom dodge check
 	if area.is_in_group("snowball") and area.is_player_snowball: # if its a snowball and is a player snowball
 		get_node("OverrideSpeedTimer").start() # start the override speed timer
 		if area.velocity.y > 0: # if the snowball is moving downward
+			speed = 400
 			velocity_down(true, enemy_state) # move down
 		elif area.velocity.y <= 0: # if the snowball is moving upward
+			speed = 400
 			velocity_down(false, enemy_state) # move up
 
 func _on_DirectionSwapTimer_timeout(): # if the directional swap timer times out
@@ -225,5 +230,5 @@ func _on_HighSnowAttackTimer_timeout(): # if the high snow attack timer
 func _on_LowSnowAttackTimer_timeout(): # if the low snow attack timer
 	enemy_attack("low_snow") # attack in low snow state
 
-func _on_OverrideSpeedTimer_timeout(): # this literally does nothing
-	speed = 300 # oopsie
+func _on_OverrideSpeedTimer_timeout(): # this changes back the speed
+	speed = 300 # resets speed to 300
